@@ -59,7 +59,7 @@ PROGRAM MAIN
 
 
   !Start up code
-  CALL painfully_slow_intro_message("banner.txt", delay=io_del)
+  CALL painfully_slow_intro_message("../banner.txt", delay=io_del)
   
   ! Doing one thing
   s = finagle_widgets(t, x)
