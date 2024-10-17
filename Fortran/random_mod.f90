@@ -27,7 +27,6 @@ MODULE random_mod
     IF (.NOT. init) THEN
       init = .TRUE.
       CALL RANDOM_SEED(SIZE = sz)
-      PRINT*, sz
       ALLOCATE(seed(sz))
       CALL SYSTEM_CLOCK(ct)
       seed = ct
