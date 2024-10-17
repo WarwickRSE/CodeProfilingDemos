@@ -11,7 +11,7 @@ PROGRAM MAIN
   INTEGER :: sel, x, x2, x3, y, i, io_del
 
   !Get selected scenario - if none, then a random one
-  sel = get_selection(maxv=3)  
+  sel = get_selection(maxv=4)  
   PRINT('(A, I1)'), "Running setup number ", sel
 
 
@@ -20,38 +20,48 @@ PROGRAM MAIN
   scal = 1.0
   SELECT CASE(sel)
     CASE(1)
-      io_del = 10 ! Delay between prints in init
+      io_del = 1 ! Delay between prints in init
       t  = 0.1    ! Sleep (~ seconds) in CALCULATING step (finagle_widgets)
-      t2 = 1.5    ! Sleep (~ seconds) in PROCESSING step (reticulate_splines)
-      t3 = 1.0    ! Sleep (~ seconds) in FINALIZING step (square_the_circle)
+      t2 = 1.0    ! Sleep (~ seconds) in PROCESSING step (reticulate_splines)
+      t3 = 1.0    ! Sleep (~ seconds) in FINALIZING step (square_the_circle) (TOTAL for all repeats)
       x  = 50     ! Repeats (internal) in CALCULATING step
       x2 = 1      ! Repeats (internal) in PROCESSING step
-      x3 = 10     ! Repeats (internal) in FINALIZING step
-      y  = 10     ! Repeats (external) of PROCESSING step
+      x3 = 1     ! Repeats (internal) in FINALIZING step
+      y  = 5     ! Repeats (external) of PROCESSING step
     CASE(2)
-      io_del = 5
+      io_del = 1
       t  = 0.01
       t2 = 0.1
       t3 = 1.0
       x  = 200
-      x2 = 1
-      x3 = 1
-      y  = 100
+      x2 = 10
+      x3 = 20
+      y  = 10
     CASE(3)
-      io_del = 1
+      io_del = 0
       t  = 0.1
       t2 = 0.01
-      t3 = 1.0
+      t3 = 5.0
       x  = 50
       x2 = 10
       x3 = 10
       y  = 100
+    CASE(4)
+      io_del = 20
+      t  = 0.1
+      t2 = 0.01
+      t3 = 1.0
+      x  = 1
+      x2 = 1
+      x3 = 1
+      y  = 1
   END SELECT
 
   t  = t  * scal
   t2 = t2 * scal
   t3 = t3 * scal
-  io_del = CEILING(io_del * scal)
+  io_del = CEILING(io_del * scal) !Defaults to 1 no matter how small we make scal, unless _exactly_ zero
+
   !--------------------------------------------------------------------------
   !---- here follows the "real" "working" code -----------------------------
   !---- If you look really closely you might notice its actually all dummy
