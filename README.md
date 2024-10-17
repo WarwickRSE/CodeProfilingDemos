@@ -16,6 +16,26 @@ much repeated functions etc.
 The idea is to give an introduction to reading profiles for
 optimisation without needing to understand complicated code.
 
+# How to use the Code
+All cases let us run a few different "scenarios" which change
+the balance between different sorts of "compute". We mock all of the compute
+using a busy-sleep. Each run takes around half a minute, to get good
+samples. This can be altered using the `scal` variable in the various codes.
+
+## Fortran
+In the Fortran subdirectory we have a single main `example.f90`
+which takes an (optional) command-line parameter "run=N".
+The build script `build` should build this using gfortran.
+It's a trivial build so easy to modify for other compilers,
+you just need to specify the F2008 standard and include
+profiling flags as relevant. 
+
+After building, run the code and follow the relevant profiling
+instructions.
+
+## Other Languages
+WIP
+
 
 ## Acknowledgements
 
