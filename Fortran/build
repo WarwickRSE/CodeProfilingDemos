@@ -1,0 +1,2 @@
+
+gfortran -O0 -pg  --std=f2008 random_mod.f90 sleep_mod.f90 command_line.f90 numerics.f90 io.f90 example.f90 -o example
