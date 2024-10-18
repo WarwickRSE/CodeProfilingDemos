@@ -1,0 +1,1 @@
+g++ -std=c++14 -pg -I./include include/sleep.h src/main.cpp -o example
