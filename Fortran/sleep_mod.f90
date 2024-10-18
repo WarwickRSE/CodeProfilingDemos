@@ -88,21 +88,15 @@ MODULE sleep_mod
     poll = 1d2
     last = 0
 
-    OPEN(file='/dev/null', status='old', unit=101, action='write')
     ! Do a busy-wait loop, checking the clock periodically
-    ! Writing to a file takes a bit longer than a simple numeric op and 
-    ! makes sure this can't be optimised away
+    ! Call to SYSTEM_CLOCK ensures loop cannot be optimised out
     DO WHILE(cnt < end_ticks)
-      tmp = tmp + 1.0
-      WRITE(101, *) tmp
       IF(last > poll) THEN
         CALL SYSTEM_CLOCK(cnt)
         last = 0
       END IF
       last = last + 1
     END DO
-
-    CLOSE(101)
 
   END SUBROUTINE busy_sleep
 
