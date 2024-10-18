@@ -80,8 +80,8 @@ MODULE sleep_mod
     ! Get current time
     CALL SYSTEM_CLOCK(cnt, cnt_rate)
 
-    ! Work out end time - units is now milliseconds
-    end_ticks = FLOOR(cnt + milliseconds * 1000.0/REAL(cnt_rate))
+    ! Work out end time using tick rate
+    end_ticks = cnt + FLOOR(REAL(milliseconds) * 1000.0/REAL(cnt_rate))
 
     ! Tune polling interval for decent accuracy without
     ! spamming system calls
