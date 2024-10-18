@@ -33,6 +33,12 @@ profiling flags as relevant.
 After building, run the code and follow the relevant profiling
 instructions.
 
+## C++
+In the C++ subdirectory we have the main program in `src/main.cpp`
+which takes the same "run=N" command line parameter. The `build` script
+builds this for gcc/clang. For other compilers, you'll need the profiling
+flags, the c++14 std (for std::chrono), and to include the `./include` folder.
+
 ## Other Languages
 WIP
 
