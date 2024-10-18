@@ -11,7 +11,7 @@ int main(int argc, char** argv){
   int sel, x, x2, x3, y, io_del;
 
   sel = io::get_selection(argc, argv);
-
+  if(sel < 1 || sel > 4) sel = 1; //Default to 1
   std::cout<<"Running setup number "<<sel<<std::endl;
 
   switch(sel){
