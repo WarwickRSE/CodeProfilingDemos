@@ -70,12 +70,11 @@ MODULE sleep_mod
   END SUBROUTINE millisleep
 
 
+  !NOTE: the routine below is moderately accurate for
+  ! times of 10 ms plus, and pretty decent for seconds
   SUBROUTINE busy_sleep(milliseconds)
 
     INTEGER, INTENT(IN) :: milliseconds
-    INTEGER(KIND=SELECTED_INT_KIND(15)) :: i, iter
-    REAL(KIND=SELECTED_REAL_KIND(15, 307)) :: clock, tmp
-
     INTEGER :: cnt, cnt_rate, poll, end_ticks, last
 
     ! Get current time
@@ -84,8 +83,12 @@ MODULE sleep_mod
     ! Work out end time - units is now milliseconds
     end_ticks = FLOOR(cnt + milliseconds * 1000.0/REAL(cnt_rate))
 
-    ! Tune polling interval
-    poll = 1d2
+    ! Tune polling interval for decent accuracy without
+    ! spamming system calls
+    ! poll is not units of ms or anything. We'd expect about
+    ! 3 ops 2 branch checks per loop. Polling every 1e6 _should_
+    ! give about 10 ms?
+    poll = 1d6
     last = 0
 
     ! Do a busy-wait loop, checking the clock periodically
