@@ -6,6 +6,12 @@ In both cases, we make use of two other tools, gprof2dot (installable
 via pip) to generate dot format files (a graph definition language)
 and dot to turn this into an image. This is part of graphviz (https://www.graphviz.org/)
 
+gprof is older, and instruments the code at compile time. This means
+we need to rebuild the code to use it. This has some downsides.
+Valgrind involves running code within a special environment - most
+codes run a bit slower, some run extremely slowly (note: the profiling
+results do account for this), which has its own downsides. 
+
 ## Important terms
 
 When discussing the time taken by a given function, there are two
@@ -57,7 +63,7 @@ to compile with any special flags, we just run the code inside valgrind, using e
 `<PID>` is the process id. 
 
 Like before, we can use a tool to transform this raw data into tabular and graph form.
-In this case we use `callgrind_annotate --inclusive <filename>` The `inclusive` flag
+In this case we use `callgrind_annotate --inclusive=yes <filename>` The `inclusive` flag
 means to include the time spent in functions called by the named one, as well
 as time spent inside it specifically. This prints a summary of the time spent
 in each function. 
